@@ -1,0 +1,10 @@
+@import '../../assets/color.scss';
+
+.z-btn {
+  padding: 10px 20px;
+  color: $color-primary;
+  border-radius: 2px;
+  background: $color-secondary;
+  border: none;
+  font-size: 20px;
+}
