@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A tool for managing p5 projects",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --require babel-core/register || true",
     "start": "electron compiled/main.js",
     "dev": "node scripts/dev-runner.js",
     "build": "node scripts/build.js"

@@ -8,15 +8,19 @@ import './assets/font.scss';
 
 import store from './core/store.js';
 import { generateID } from './core/helper.js';
+import fs from 'fs';
 
-store.set('projects', [ 
-  {_id: generateID(20), name: 'abc', path: '/zerox/sadasd'} 
-]);
+// add available libraries
+// if (!store.get('available_libraries')) {
+//   fs.readdir('static/libraries/', (err, files) => {
+//     files.forEach(file => {
+//       store.set('available_libraries', [
+//         {_id: generateID(20), name: file, version: }
+//       ]);
+//     });
+//   })
+// }
 
-store.set('libraries', [ 
-  {_id: generateID(20), name: 'p5.js', link: 'https://d.com', version: '10.0'},
-  {_id: generateID(20), name: 'p56.js', link: 'https://d.com', version: '10.0'}
-]);
 
 const render = (Component) => {
   ReactDOM.render(
