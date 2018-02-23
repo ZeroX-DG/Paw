@@ -1,7 +1,8 @@
 // all initial configs go here
 
 // ES6
-require('babel-register');
+if (process.env.NODE_ENV !== 'production')
+  require('babel-register');
 
 // start the main app
-require('./app');
+require('./app.js');
