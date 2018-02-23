@@ -54,6 +54,7 @@ function startRenderer() {
         quiet: true,
         hot: true,
         compress: true,
+        historyApiFallback: true,
         before (app, ctx) {
           ctx.middleware.waitUntilValid(() => {
             resolve()

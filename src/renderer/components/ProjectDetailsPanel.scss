@@ -1,0 +1,15 @@
+@import '../assets/color.scss';
+
+.project-details-panel {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  background: darken($color-primary, 10);
+  padding: 20px;
+  box-sizing: border-box;
+  .project-name {
+    color: white;
+    font-size: 1.5rem;
+  }
+}

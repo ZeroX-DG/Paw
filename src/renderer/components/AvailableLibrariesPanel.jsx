@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import './RightPanel.scss';
-import LibraryPanel from './RightPanel/LibraryPanel.jsx';
+import './AvailableLibrariesPanel.scss';
+import LibraryPanel from './AvailableLibrariesPanel/LibraryPanel.jsx';
 import Button from './Shared/Button.jsx';
 import store from '../core/store.js';
 
-export default class RightPanel extends Component {
+export default class AvailableLibrariesPanel extends Component {
 
   render() {
-    let libraries = store.get('libraries') || [];
+    let libraries = store.get('available_libraries') || [];
     return (
-      <div className="right-panel">
+      <div className="available-libraries-panel">
         <h1 style={{fontSize: '30px', height: '50px', color: 'white'}}>
           Libraries
         </h1>

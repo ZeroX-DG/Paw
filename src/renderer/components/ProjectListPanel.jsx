@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-import './LeftPanel.scss';
-import ProjectPanel from './LeftPanel/ProjectPanel.jsx';
+import './ProjectListPanel.scss';
+import ProjectPanel from './ProjectListPanel/ProjectPanel.jsx';
 import Button from './Shared/Button.jsx';
 import store from '../core/store.js';
 
-export default class LeftPanel extends Component {
+export default class ProjectListPanel extends Component {
   render() {
     let projects = store.get('projects') || [];
     return (
-      <div className="left-panel">
+      <div className="project-list-panel">
         <p style={{
             fontSize: '30px', 
             height: '50px', 
@@ -22,7 +22,8 @@ export default class LeftPanel extends Component {
         </div>
         {projects.map((project, i) => (
           <ProjectPanel name={project.name} 
-                        path={project.path} 
+                        path={project.path}
+                        id={project._id}
                         key={project._id} />
         ))}
       </div>
