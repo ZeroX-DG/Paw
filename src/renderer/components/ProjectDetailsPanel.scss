@@ -6,10 +6,49 @@
   position: fixed;
   right: 0;
   background: darken($color-primary, 10);
-  padding: 20px;
   box-sizing: border-box;
   .project-name {
     color: white;
-    font-size: 1.5rem;
+    font-size: 3rem;
+    margin: 20px;
+  }
+  .section-title {
+    font-size: 2rem;
+    color: white;
+    margin: 10px 20px;
+  }
+  .library-list {
+    width: 100%;
+    height: calc((100% - 50px - 5rem));
+    background: darken($color-primary, 15);
+    overflow-y: scroll;
+    ul {
+      width: 100%;
+      li {
+        color: white;
+        padding: 20px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      transition: width 0.2s;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: $color-primary;
+    }
+  }
+  .close-button {
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
   }
 }

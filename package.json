@@ -36,9 +36,11 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "animate.css": "^3.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "react-toastify": "^3.3.4",
     "reset.css": "^2.0.2"
   }
 }
