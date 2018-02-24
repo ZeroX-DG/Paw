@@ -13,13 +13,13 @@ export default class CheckBox extends Component {
 
   check() {
     this.props.onChange(!this.state.checked, this.props.value);
-    this.setState({checked: !this.state.checked});
+    this.setState({ checked: !this.state.checked });
   }
 
   render() {
     return (
       <div className={`checkbox ${this.state.checked ? 'checked' : ''}`}
-          onClick={this.check.bind(this)}>
+        onClick={this.check.bind(this)}>
         <span className="checkmark">
           <i className="material-icons">check</i>
         </span>

@@ -59,6 +59,7 @@ module.exports = {
         removeAttributeQuotes: true,
         removeComments: true
       },
+      base: false,
       nodeModules: false
     }),
     new CopyWebpackPlugin([

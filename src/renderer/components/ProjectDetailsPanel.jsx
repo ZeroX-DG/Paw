@@ -30,6 +30,7 @@ export default class ProjectDetailsPanel extends Component {
             {libraries.map((library, i) => (
               <AvailableLibraryCheckBox key={library._id} 
                                         name={library.name}
+                                        project={project._id}
                                         id={library._id} />
             ))}
           </ul>
