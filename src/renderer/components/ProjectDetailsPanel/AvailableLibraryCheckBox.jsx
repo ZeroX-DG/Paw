@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import CheckBox from '../Shared/CheckBox.jsx';
 import { toast } from 'react-toastify';
 import store from '../../core/store';
-import fs from 'fs';
+import fs from 'fs-extra';
 import path from 'path';
 
 export default class AvailableLibraryCheckBox extends Component {
@@ -13,7 +13,7 @@ export default class AvailableLibraryCheckBox extends Component {
   }
 
   updateLibrary(state, value){
-    let default_toast_config = {
+    const DEFAULT_TOAST_CONFIG = {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 2000,
       closeOnClick: true,
@@ -21,11 +21,31 @@ export default class AvailableLibraryCheckBox extends Component {
     };
 
     if (state) {
-      toast.success(`Added ${value} to project`, default_toast_config);
-      this.addLibToProject();
+      let actionAfterAddLib = this.addLibToProject();
+      // if there is a promise returned from the action
+      if (actionAfterAddLib) {
+        actionAfterAddLib.then(() => {
+          toast.success(`Added ${value} to project`, DEFAULT_TOAST_CONFIG);
+        }).catch(() => {
+          toast.error(`Error while adding ${value} to project`, DEFAULT_TOAST_CONFIG);
+        });
+        return;
+      }
+      // if nothing was returned
+      toast.error(`Error while adding ${value} to project`, DEFAULT_TOAST_CONFIG);
     }
     else {
-      toast.info(`Removed ${value} from project`, default_toast_config);
+      let actionAfterRemoveLib = this.removeLibFromProject();
+
+      if (actionAfterRemoveLib) {
+        actionAfterRemoveLib.then(() => {
+          toast.info(`Removed ${value} from project`, DEFAULT_TOAST_CONFIG);
+        }).catch(() => {
+          toast.info(`Removed ${value} from project`, DEFAULT_TOAST_CONFIG);
+        });
+        return;
+      }
+      toast.error(`Error while removing ${value} from project`, DEFAULT_TOAST_CONFIG);
     }
   }
 
@@ -41,19 +61,43 @@ export default class AvailableLibraryCheckBox extends Component {
       }
       
       if (project) {
-        fs.createReadStream(lib_path).pipe(
-          fs.createWriteStream(path.resolve(
-            project.path, 'libraries', lib
-          ))
+        const project_lib_path = path.resolve(
+          project.path, 'libraries', lib
         );
+        return fs.copy(lib_path, project_lib_path);
+      }
+    }
+  }
+
+  removeLibFromProject() {
+    let lib = this.props.name;
+    if (lib) {
+      const PROJECT = store.getChild('projects', '_id', this.props.project);
+      if (PROJECT) {
+        const PROJECT_LIB_PATH = path.resolve(
+          PROJECT.path, 'libraries', lib
+        );
+        return fs.remove(PROJECT_LIB_PATH);
       }
     }
   }
 
   render() {
+    let lib = this.props.name;
+    let is_lib_exists = false;
+    if (lib) {
+      let project = store.getChild('projects', '_id', this.props.project);
+      if (project) {
+        const PROJECT_LIB_PATH = path.resolve(
+          project.path, 'libraries', lib
+        );
+        is_lib_exists = fs.pathExistsSync(PROJECT_LIB_PATH);
+      }
+    }
+    
     return (
       <li>
-        <CheckBox value={this.props.name} onChange={this.updateLibrary.bind(this)} /> 
+        <CheckBox checked={is_lib_exists} value={this.props.name} onChange={this.updateLibrary.bind(this)} /> 
         {this.props.name}
       </li>
     );
