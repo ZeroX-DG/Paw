@@ -4,8 +4,10 @@
 ## Features
 - [ ] Generate new p5 project with default template
 - [ ] Generate new p5 project with custome template (remote repo)
-- [ ] Add library to later add to the project folder
-- [ ] Remote unused library from project folder
+- [x] Add library to later add to the project folder
+- [x] Remove unused library from project folder
+- [x] Add library to index.html
+- [x] Remove library from index.html
 
 
 ## About this project

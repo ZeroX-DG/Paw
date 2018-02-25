@@ -7,16 +7,45 @@ import 'reset.css';
 import './assets/font.scss';
 
 import store from './core/store.js';
-import { generateID } from './core/helper.js';
+import { generateID, getLibVersion } from './core/helper.js';
+import fs from 'fs';
+import path from 'path';
 
-store.set('projects', [ 
-  {_id: generateID(20), name: 'abc', path: '/zerox/sadasd'} 
-]);
+// add available libraries
+if (!store.get('available_libraries') || 
+    store.get('available_libraries').length < 1) {
+  let current_libraries = store.get('available_libraries') || [];
+  let default_libraries_path = path.resolve(
+    __dirname, '..', 'static/libraries'
+  );
+  fs.readdir(default_libraries_path, (err, files) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    files.forEach(file => {
+      let link = getDefaultLibLink(file); 
+      current_libraries.push(
+        {
+          _id: generateID(20), 
+          name: file, 
+          version: getLibVersion(
+            path.resolve(default_libraries_path, file)
+          ),
+          link: link
+        }
+      );
+    });
+    store.set('available_libraries', current_libraries);
+  })
+}
 
-store.set('libraries', [ 
-  {_id: generateID(20), name: 'p5.js', link: 'https://d.com', version: '10.0'},
-  {_id: generateID(20), name: 'p56.js', link: 'https://d.com', version: '10.0'}
-]);
+function getDefaultLibLink(file) {
+  if (file === 'p5.dom.js' || file === 'p5.js' || file === 'p5.sound.js') {
+    return 'https://github.com/processing/p5.js/releases/download/0.6.0/' + file;
+  }
+}
+
 
 const render = (Component) => {
   ReactDOM.render(

@@ -24,6 +24,15 @@ class Store {
     }
   }
 
+  getChild(key, attr, value) {
+    for(let i = 0; i < this.data[key].length; i++) {
+      if (this.data[key][i][attr] === value) {
+        return this.data[key][i];
+      }
+    }
+    return null;
+  }
+
   remove(key, attr, value) {
     for(let i = 0; i < this.data[key].length; i++) {
       if (this.data[key][i][attr] === value) {

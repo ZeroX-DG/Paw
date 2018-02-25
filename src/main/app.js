@@ -1,4 +1,4 @@
-import { createWindow } from './window';
+import { createWindow } from './window.js';
 import { app } from 'electron';
 
 app.on('ready', createWindow);

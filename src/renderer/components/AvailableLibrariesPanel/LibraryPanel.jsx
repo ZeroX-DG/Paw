@@ -11,7 +11,7 @@ export default class LibraryPanel extends Component {
   }
 
   deleteThisLib() {
-    store.remove('libraries', '_id', this.state.id);
+    store.remove('available_libraries', '_id', this.state.id);
     this.setState({show: false});
   }
 

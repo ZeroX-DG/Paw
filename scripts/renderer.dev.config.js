@@ -49,6 +49,7 @@ module.exports = {
       hot: true,
       title: 'Paw',
       template: path.resolve(__dirname, '..', 'src/renderer/index.html'),
+      base: true
     }),
     new CopyWebpackPlugin([
       {
@@ -57,5 +58,8 @@ module.exports = {
         ignore: ['.*']
       }
     ]),
-  ]
+  ],
+  node: {
+    __dirname: true
+  }
 };
