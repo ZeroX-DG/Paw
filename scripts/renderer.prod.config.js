@@ -5,7 +5,6 @@ const { APP } = require('../src/config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const NodeTargetPlugin = require('webpack/lib/node/NodeTargetPlugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BabiliWebpackPlugin = require('babili-webpack-plugin');
 
 module.exports = {
@@ -46,8 +45,6 @@ module.exports = {
   },
   plugins: [
     new BabiliWebpackPlugin(),
-    new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new NodeTargetPlugin(),

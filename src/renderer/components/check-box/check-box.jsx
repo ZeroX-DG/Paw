@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './CheckBox.scss';
+import './check-box.scss';
 
 export default class CheckBox extends Component {
 
@@ -18,11 +18,13 @@ export default class CheckBox extends Component {
 
   render() {
     return (
-      <div className={`checkbox ${this.state.checked ? 'checked' : ''}`}
-        onClick={this.check.bind(this)}>
-        <span className="checkmark">
-          <i className="material-icons">check</i>
-        </span>
+      <div className="checkbox-wrapper">
+        <div className={`checkbox ${this.state.checked ? 'checked' : ''}`}
+          onClick={this.check.bind(this)}>
+          <span className="checkmark">
+            <i className="material-icons">check</i>
+          </span>
+        </div>
       </div>
     );
   }

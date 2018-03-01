@@ -1,6 +1,6 @@
 @import '../../assets/color.scss';
 
-.library-panel {
+.library-item {
   width: 100%;
   padding: 20px;
   color: white;
@@ -9,6 +9,8 @@
   box-shadow: rgba(0, 0, 0, 0.3) 10px 0px 65px 0px;
   position: relative;
   margin-bottom: 20px;
+  word-wrap: break-word;
+  line-height: 2rem;
   .library-name {
     font-size: 2rem;
     margin-bottom: 40px;
@@ -27,6 +29,11 @@
   .library-version, .library-link {
     font-size: 1.3rem;
     margin-bottom: 10px;
+    width: 100%;
+    height: 1.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .delete-button {

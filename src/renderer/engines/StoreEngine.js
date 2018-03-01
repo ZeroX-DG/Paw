@@ -1,11 +1,12 @@
 import electron from 'electron';
 import path from 'path';
 import fs from 'fs';
+import {APP} from '../../config';
 
-class Store {
+class StoreEngine {
   constructor() {
     const userDataPath = (electron.app || electron.remote.app).getPath('userData');
-    this.path = path.join(userDataPath, 'paw_user_data.json');
+    this.path = path.join(userDataPath, APP.data_file);
     this.data = parseDataFile(this.path);
   }
 
@@ -15,22 +16,7 @@ class Store {
   
   set(key, val) {
     this.data[key] = val;
-    try {
-      fs.writeFileSync(this.path, JSON.stringify(this.data));
-    }
-    catch(error) {
-      console.log(error);
-      return;
-    }
-  }
-
-  getChild(key, attr, value) {
-    for(let i = 0; i < this.data[key].length; i++) {
-      if (this.data[key][i][attr] === value) {
-        return this.data[key][i];
-      }
-    }
-    return null;
+    this.save();
   }
 
   remove(key, attr, value) {
@@ -39,6 +25,10 @@ class Store {
         delete this.data[key][i];
       }
     }
+    this.save();
+  }
+
+  save() {
     try {
       fs.writeFileSync(this.path, JSON.stringify(this.data));
     }
@@ -57,6 +47,4 @@ function parseDataFile(filePath) {
   }
 }
 
-const store = new Store();
-
-export default store;
+export default new StoreEngine;

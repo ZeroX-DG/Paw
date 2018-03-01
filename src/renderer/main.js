@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './components/App.jsx';
+import App from './routes/App.jsx';
 
 import 'reset.css';
 import './assets/font.scss';
 
-import store from './core/store.js';
-import { generateID, getLibVersion } from './core/helper.js';
+import LibraryEngine from '../renderer/engines/LibraryEngine';
+import { generateID, getLibVersion } from '../renderer/common/common';
 import fs from 'fs';
 import path from 'path';
 
 // add available libraries
-if (!store.get('available_libraries') || 
-    store.get('available_libraries').length < 1) {
-  let current_libraries = store.get('available_libraries') || [];
+if (!(LibraryEngine.getLibraryList().length > 1)) {
+  let current_libraries = LibraryEngine.getLibraryList();
   let default_libraries_path = path.resolve(
     __dirname, '..', 'static/libraries'
   );
@@ -36,7 +35,7 @@ if (!store.get('available_libraries') ||
         }
       );
     });
-    store.set('available_libraries', current_libraries);
+    LibraryEngine.setLibraryList(current_libraries);
   })
 }
 
@@ -59,8 +58,8 @@ const render = (Component) => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./components/App.jsx', () => {
-    app = require('./components/App.jsx');
+  module.hot.accept('./routes/App.jsx', () => {
+    app = require('./routes/App.jsx');
     render(app)
   })
 }
