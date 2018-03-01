@@ -1,5 +1,4 @@
 import fse from 'fs-extra';
-import fs from 'fs';
 import path from 'path';
 import cheerio from 'cheerio';
 import pretty from 'pretty';
@@ -13,6 +12,19 @@ const DEFAULT_TOAST_CONFIG = {
 };
 
 export function addLib(lib, project_path) { 
+  
+  return new Promise(function(resolve, reject) {
+    if (addLibToHTML(lib, project_path) && 
+        addLibToFolder(lib, project_path)) {
+      resolve();
+    }
+    else {
+      reject();
+    }
+  });
+}
+
+export function addLibToFolder(lib, project_path) {
   let lib_path = path.resolve(
     __dirname, '../../static/libraries', lib
   );
@@ -25,20 +37,39 @@ export function addLib(lib, project_path) {
     project_path, 'libraries', lib
   );
 
-  if (addLibToHTML(lib, project_path)) {
-    return fse.copy(lib_path, PROJECT_LIB_PATH);
+  try {
+    fse.copySync(lib_path, PROJECT_LIB_PATH);
+    return true;
   }
-  return new Promise((resolve, reject) => {reject()});
+  catch(err) {
+    console.log(err);
+    return false;
+  }
 }
 
 export function removeLib(lib, project_path) {
+  return new Promise(function(resolve, reject) {
+    if (removeLibFromHtml(lib, project_path) && 
+      removeLibFromFolder(lib, project_path)) {
+      resolve();
+    }
+    else {
+      reject();
+    }
+  });
+}
+
+export function removeLibFromFolder(lib, project_path) {
   const PROJECT_LIB_PATH = path.resolve(
     project_path, 'libraries', lib
   );
-  if (removeLibFromHtml(lib, project_path)) {
-    return fse.remove(PROJECT_LIB_PATH);
+  try{
+    fse.removeSync(PROJECT_LIB_PATH);
+    return true;
   }
-  return new Promise((resolve, reject) => {reject()});
+  catch(err) {
+    return false;
+  }
 }
 
 export function isLibExistsInProject(lib, project_path) {
@@ -48,11 +79,11 @@ export function isLibExistsInProject(lib, project_path) {
   return fse.pathExistsSync(PROJECT_LIB_PATH);
 }
 
-function addLibToHTML(lib, project_path) {
+export function addLibToHTML(lib, project_path) {
   let index_file_path = path.resolve(project_path, 'index.html');
   let html;
   try {
-    html = fs.readFileSync(index_file_path).toString().trim();
+    html = fse.readFileSync(index_file_path).toString().trim();
   }
   catch(err) {
     toast.error(`No index.html file found`, DEFAULT_TOAST_CONFIG);
@@ -65,7 +96,7 @@ function addLibToHTML(lib, project_path) {
   }
   let new_html = pretty($.html(), {ocd: true});
   try {
-    fs.writeFileSync(path.resolve(index_file_path), new_html, 'utf-8');
+    fse.writeFileSync(path.resolve(index_file_path), new_html, 'utf-8');
     return true;
   }
   catch(err) {
@@ -73,11 +104,11 @@ function addLibToHTML(lib, project_path) {
   }
 }
 
-function removeLibFromHtml(lib, project_path) {
+export function removeLibFromHtml(lib, project_path) {
   let index_file_path = path.resolve(project_path, 'index.html');
   let html;
   try {
-    html = fs.readFileSync(index_file_path).toString().trim();
+    html = fse.readFileSync(index_file_path).toString().trim();
   }
   catch(err) {
     toast.error(`No index.html file found`, DEFAULT_TOAST_CONFIG);
@@ -90,7 +121,7 @@ function removeLibFromHtml(lib, project_path) {
   }
   let new_html = pretty($.html(), {ocd: true});
   try {
-    fs.writeFileSync(path.resolve(index_file_path), new_html, 'utf-8');
+    fse.writeFileSync(path.resolve(index_file_path), new_html, 'utf-8');
     return true;
   }
   catch(err) {

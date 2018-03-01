@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './AvailableLibrariesPanel.scss';
 import LibraryPanel from './AvailableLibrariesPanel/LibraryPanel.jsx';
-import Button from './Shared/Button.jsx';
+import Button from './Public/Button.jsx';
 import store from '../core/store.js';
 
 export default class AvailableLibrariesPanel extends Component {
@@ -17,14 +17,17 @@ export default class AvailableLibrariesPanel extends Component {
         <div className="button-group" style={{marginBottom: '20px'}}>
           <Button>New Library</Button>
         </div>
+        <ul>
         {libraries.map((library, i) => (
-          <LibraryPanel name={library.name} 
-                        version={library.version}
-                        link={library.link} 
-                        id={library._id}
-                        key={library._id}
-                        onClick={this.reRenderLibs} />
+          <li key={library._id}>
+            <LibraryPanel name={library.name} 
+                          version={library.version}
+                          link={library.link} 
+                          id={library._id}
+                          onClick={this.reRenderLibs} />
+          </li>
         ))}
+        </ul>
       </div>
     );
   }

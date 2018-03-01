@@ -1,10 +1,17 @@
 import electron from 'electron';
 import path from 'path';
 import fs from 'fs';
+import config from '../../config';
 
 class Store {
   constructor() {
-    const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+    let userDataPath;
+    if (process.env.NODE_ENV === 'testing') {
+      userDataPath = config.APP.data_source_test;
+    }
+    else {
+      userDataPath = (electron.app || electron.remote.app).getPath('userData');
+    }
     this.path = path.join(userDataPath, 'paw_user_data.json');
     this.data = parseDataFile(this.path);
   }
@@ -58,5 +65,4 @@ function parseDataFile(filePath) {
 }
 
 const store = new Store();
-
 export default store;

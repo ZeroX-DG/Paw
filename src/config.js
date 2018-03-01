@@ -5,7 +5,8 @@ module.exports = {
   },
 
   APP: {
-    port: 3000
+    port: 3000,
+    data_source_test: '~/.config/Electron'
   }
 
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CheckBox from '../Shared/CheckBox.jsx';
+import CheckBox from '../Public/CheckBox.jsx';
 import { toast } from 'react-toastify';
 import store from '../../core/store';
 import { 
@@ -53,7 +53,7 @@ export default class AvailableLibraryCheckBox extends Component {
         }).catch((err) => {
           this.checkbox.setState({checked: true});
           console.log(err);
-          toast.info(`Removed ${value} from project`, DEFAULT_TOAST_CONFIG);
+          toast.info(`Error while removing ${value} from project`, DEFAULT_TOAST_CONFIG);
         });
       }
     }

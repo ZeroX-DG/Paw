@@ -3,7 +3,7 @@ import store from '../core/store.js';
 import {Link} from 'react-router-dom';
 
 import './ProjectDetailsPanel.scss';
-import CheckBox from './Shared/CheckBox.jsx';
+import CheckBox from './Public/CheckBox.jsx';
 import AvailableLibraryCheckBox from './ProjectDetailsPanel/AvailableLibraryCheckBox.jsx';
 
 export default class ProjectDetailsPanel extends Component {

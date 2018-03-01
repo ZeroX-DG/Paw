@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
 import './ProjectPanel.scss';
-import Button from '../Shared/Button.jsx';
+import Button from '../Public/Button.jsx';
 
 export default class ProjectPanel extends Component {
 

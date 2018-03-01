@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './ProjectListPanel.scss';
 import ProjectPanel from './ProjectListPanel/ProjectPanel.jsx';
-import Button from './Shared/Button.jsx';
+import Button from './Public/Button.jsx';
 import store from '../core/store.js';
 
 export default class ProjectListPanel extends Component {
