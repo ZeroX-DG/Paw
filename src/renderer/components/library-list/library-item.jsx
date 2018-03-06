@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 
-import './LibraryPanel.scss';
-import store from '../../core/store.js';
+import './library-item.scss';
 
-export default class LibraryPanel extends Component {
+export default class LibraryItem extends Component {
 
   constructor(props) {
     super(props);
     this.state = {show: true};
   }
 
-  deleteThisLib() {
-    store.remove('available_libraries', '_id', this.state.id);
-    this.setState({show: false});
-  }
-
   render() {
     if (this.state.show) {
       return (
-        <div className="library-panel">
-          <div className="delete-button" onClick={this.deleteThisLib.bind(this)}>
+        <div className="library-item">
+          <div className="delete-button" onClick={this.props.deleteClick}>
             <i className="material-icons">delete</i>
           </div>
           <p className="library-name">{this.props.name}</p>
