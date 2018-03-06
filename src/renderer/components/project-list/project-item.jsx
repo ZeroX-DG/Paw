@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-import './ProjectPanel.scss';
-import Button from '../Public/Button.jsx';
+import './project-item.scss';
+import Button from '../button/button.jsx';
 
 export default class ProjectItem extends Component {
 

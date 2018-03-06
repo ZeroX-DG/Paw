@@ -6,7 +6,7 @@ module.exports = {
 
   APP: {
     port: 3000,
-    data_source_test: '~/.config/Electron'
+    data_file: 'paw_user_data.json'
   }
 
 }
