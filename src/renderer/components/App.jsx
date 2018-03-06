@@ -13,9 +13,9 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="wrapper" style={{fontFamily: 'Lato, sans-serif'}}>
           <ToastContainer />
-          <Route path='/' component={ProjectListPanel} />
-          <Route path='/' component={AvailableLibrariesPanel} />
-          <Route path='/project/:id' component={ProjectDetailsPanel} />
+          <Route exact path='/' component={ProjectListPanel} />
+          <Route exact path='/' component={AvailableLibrariesPanel} />
+          <Route exact path='/project/:id' component={ProjectDetailsPanel} />
         </div>
       </BrowserRouter>
     );

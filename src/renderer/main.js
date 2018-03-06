@@ -11,10 +11,10 @@ import { generateID, getLibVersion } from './core/helper.js';
 import fs from 'fs';
 import path from 'path';
 
-// add available libraries
+// add default available libraries
 if (!store.get('available_libraries') || 
     store.get('available_libraries').length < 1) {
-  let current_libraries = store.get('available_libraries') || [];
+  let current_libraries = [];
   let default_libraries_path = path.resolve(
     __dirname, '..', 'static/libraries'
   );
@@ -37,7 +37,7 @@ if (!store.get('available_libraries') ||
       );
     });
     store.set('available_libraries', current_libraries);
-  })
+  });
 }
 
 function getDefaultLibLink(file) {
