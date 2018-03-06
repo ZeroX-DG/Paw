@@ -7,8 +7,21 @@ import store from '../core/store.js';
 
 export default class AvailableLibrariesPanel extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      libraries: []
+    };
+    store.addListener((action) => {
+      if (action == 'set' || action == 'append') {
+        let libraries = store.get('available_libraries') || [];
+        this.setState({libraries});
+      }
+    });
+  }
+
   render() {
-    let libraries = store.get('available_libraries') || [];
+    
     return (
       <div className="available-libraries-panel">
         <h1 style={{fontSize: '30px', height: '50px', color: 'white'}}>
@@ -18,14 +31,13 @@ export default class AvailableLibrariesPanel extends Component {
           <Button>New Library</Button>
         </div>
         <ul>
-        {libraries.map((library, i) => (
-          <li key={library._id}>
-            <LibraryPanel name={library.name} 
-                          version={library.version}
-                          link={library.link} 
-                          id={library._id}
-                          onClick={this.reRenderLibs} />
-          </li>
+        {this.state.libraries.map((library, i) => (
+          <LibraryPanel name={library.name} 
+                        version={library.version}
+                        link={library.link} 
+                        id={library._id}
+                        key={library._id}
+                        onClick={this.reRenderLibs} />
         ))}
         </ul>
       </div>

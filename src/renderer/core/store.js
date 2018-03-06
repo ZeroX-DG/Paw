@@ -14,6 +14,27 @@ class Store {
     }
     this.path = path.join(userDataPath, 'paw_user_data.json');
     this.data = parseDataFile(this.path);
+    this.listener = [];
+  }
+
+  addListener(fn) {
+    this.listener.push(fn);
+  }
+
+  callListener(action) {
+    for(let i = 0; i < this.listener.length; i++) {
+      this.listener[i](action);
+    }
+  }
+
+  save() {
+    try {
+      fs.writeFileSync(this.path, JSON.stringify(this.data));
+    }
+    catch(error) {
+      console.log(error);
+      return;
+    }
   }
 
   get(key) {
@@ -22,13 +43,14 @@ class Store {
   
   set(key, val) {
     this.data[key] = val;
-    try {
-      fs.writeFileSync(this.path, JSON.stringify(this.data));
-    }
-    catch(error) {
-      console.log(error);
-      return;
-    }
+    this.callListener("set");
+    this.save();
+  }
+
+  appendChild(key, val) {
+    this.data[key].push(val);
+    this.callListener("append");
+    this.save();
   }
 
   getChild(key, attr, value) {
@@ -46,13 +68,8 @@ class Store {
         delete this.data[key][i];
       }
     }
-    try {
-      fs.writeFileSync(this.path, JSON.stringify(this.data));
-    }
-    catch(error) {
-      console.log(error);
-      return;
-    }
+    this.callListener("remove");
+    this.save();
   }
 }
 
