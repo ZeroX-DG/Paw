@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-import './ProjectPanel.scss';
-import Button from '../Shared/Button.jsx';
+import './project-item.scss';
+import Button from '../button/button.jsx';
 
-export default class ProjectPanel extends Component {
+export default class ProjectItem extends Component {
 
   constructor(props) {
     super(props);
@@ -12,7 +12,7 @@ export default class ProjectPanel extends Component {
 
   render() {
     return (
-      <div className="project-panel">
+      <div className="project-item">
         <div className="close-button">&#10005;</div>
         <p className="project-name">{this.props.name}</p>
         <p className="project-path">{this.props.path}</p>
