@@ -6,7 +6,7 @@ export default class Button extends Component {
 
   render() {
     return (
-      <button className="z-btn" style={this.props.style}>
+      <button className="z-btn" {...this.props}>
         {this.props.children}
       </button>
     );

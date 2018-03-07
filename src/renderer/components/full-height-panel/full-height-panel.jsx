@@ -5,13 +5,14 @@ import './full-height-panel.scss';
 export default class FullHeightPanel extends Component {
 
   render(){
-    let { side, style } = this.props;
+    let { side, style, className } = this.props;
     let left = {
       left: (side == 'right' ? '50%' : '0%')
     };
     style = Object.assign({}, style, left);
+    className = 'panel-full-height ' + className;
     return (
-      <div className="panel-full-height" style={style}>
+      <div className={className} style={style}>
         {this.props.children}
       </div>
     );

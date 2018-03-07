@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import './home-route.scss';
 
@@ -6,49 +6,44 @@ import FullHeightPanel from '../../components/full-height-panel/full-height-pane
 import ProjectList from '../../components/project-list/project-list.jsx';
 import LibraryList from '../../components/library-list/library-list.jsx';
 import Button from '../../components/button/button.jsx';
+import ScrollableArea from '../../components/scrollable-area/scrollable-area.jsx';
+import NewLibraryModal from './new-library-modal/new-library-modal.jsx';
+import EventManager from '../../common/EventManager';
 
 export default class HomeRoute extends Component {
+
+  openNewLibraryModal() {
+    let library_modal = <NewLibraryModal />;
+    EventManager.emit('openModal', library_modal);
+  }
 
   render() {
     return (
       <div className="home-route">
-        <FullHeightPanel style={{
-          width: '50%',
-          background: '#2a2d3b',
-          padding: '20px'
-        }} side="left">
+        <FullHeightPanel className="section" style={{background: '#2a2d3b'}} side="left">
 
-          <h1 style={{
-            color: '#f3cc84',
-            fontSize: '30px',
-            height: '50px'
-          }}>Projects</h1>
+          <h1 className="section-title">Projects</h1>
 
           <div className="button-group" style={{marginBottom: '20px'}}>
             <Button>New project</Button>
           </div>
-
-          <ProjectList />
+          <ScrollableArea>
+            <ProjectList />
+          </ScrollableArea>
 
         </FullHeightPanel>
 
-        <FullHeightPanel style={{
-          width: '50%',
-          background: '#12141a',
-          padding: '20px'
-        }} side="right">
-
-          <h1 style={{
-            color: '#f3cc84',
-            fontSize: '30px',
-            height: '50px'
-          }}>Libraries</h1>
+        <FullHeightPanel className="section" style={{background: '#12141a'}} side="right">
+        
+          <h1 className="section-title">Libraries</h1>
 
           <div className="button-group" style={{marginBottom: '20px'}}>
-            <Button>New library</Button>
+            <Button onClick={this.openNewLibraryModal}>New library</Button>
           </div>
 
-          <LibraryList />
+          <ScrollableArea>
+            <LibraryList />
+          </ScrollableArea>
 
         </FullHeightPanel>
       </div>

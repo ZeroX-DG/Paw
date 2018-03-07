@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export function generateID(length) {
+export function generateID(length=10) {
   let text = ""
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
